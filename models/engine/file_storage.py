@@ -13,7 +13,7 @@ class FileStorage:
         if cls != None:
             new_dict = {}
             for key, val in self.__objects.items():
-                if cls == val:
+                if cls == val.__class__:
                     new_dict[key] = val
                 return new_dict
         else:
