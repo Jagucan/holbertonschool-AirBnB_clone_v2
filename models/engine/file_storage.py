@@ -59,4 +59,4 @@ class FileStorage:
     def delete(self, obj=None):
         """to delete obj from __objects if it's inside
          - if obj is equal to None"""
-        pass
+        return
