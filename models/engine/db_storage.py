@@ -18,17 +18,17 @@ class DBStorage:
 
     def __init__(self):
         """Crate Engine"""
-        user = os.environ.get('HBNB_MYSQL_USER')
-        password = os.environ.get('HBNB_MYSQL_PWD')
-        host = os.environ.get('HBNB_MYSQL_HOST', 'localhost')
-        database = os.environ.get('HBNB_MYSQL_DB')
+        user = os.getenv('HBNB_MYSQL_USER')
+        password = os.getenv('HBNB_MYSQL_PWD')
+        host = os.getenv('HBNB_MYSQL_HOST', 'localhost')
+        database = os.getenv('HBNB_MYSQL_DB')
 
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}:3306/{}'.
                                       format(user, password,
                                              host, database),
                                       pool_pre_ping=True)
 
-        if os.environ.get('HBNB_ENV') == 'test':
+        if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
         self.__session = scoped_session(sessionmaker(bind=self.__engine,
