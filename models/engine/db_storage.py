@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 """Engine DBStorage"""
 import os
-from models import storage
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker, session
+from models.base_model import Base
 from models.user import User
 from models.city import City
 from models.state import State
 from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
-from sqlalchemy import create_engine
-from base_model import BaseModel, Base
-from sqlalchemy.orm import sessionmaker, scoped_session
-
 
 class DBStorage:
     """DBStorge Class"""
