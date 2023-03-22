@@ -149,26 +149,29 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, args):
         """ Method to show an individual object """
-        try:
-            if not args:
-                raise SyntaxError()
-            my_list = args.split(" ")
-            if my_list[0] not in self.all_classes:
-                raise NameError()
-            if len(my_list) < 2:
-                raise IndexError()
-            objects = storage.all()
-            key = my_list[0] + '.' + my_list[1]
-            if key in objects:
-                print(objects[key])
-            else:
-                raise KeyError()
-        except SyntaxError:
+        new = args.partition(" ")
+        c_name = new[0]
+        c_id = new[2]
+
+        # guard against trailing args
+        if c_id and ' ' in c_id:
+            c_id = c_id.partition(' ')[0]
+
+        if not c_name:
             print("** class name missing **")
-        except NameError:
+            return
+
+        if c_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        except IndexError:
+            return
+
+        if not c_id:
             print("** instance id missing **")
+            return
+
+        key = c_name + "." + c_id
+        try:
+            print(storage._FileStorage.__objects[key])
         except KeyError:
             print("** no instance found **")
 
