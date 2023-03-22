@@ -4,6 +4,7 @@ from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from models.review import Review
+import models
 
 
 class Place(BaseModel, Base):
@@ -30,10 +31,8 @@ class Place(BaseModel, Base):
     else:
         @property
         def rev(self):
-            """Returns the list of Review instances"""
-            from models.__init__ import storage
             rev_list = []
-            for r in storage.all(Review).values():
-                if r.place_id == self.id:
-                    rev_list.append(r)
+            for review in models.storage.all(Review).values():
+                if review.place_id == self.id:
+                    rev_list.append(review)
             return rev_list
