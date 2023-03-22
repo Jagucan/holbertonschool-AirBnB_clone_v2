@@ -8,7 +8,7 @@ from models.review import Review
 
 class Place(BaseModel, Base):
     """A place to stay"""
-    from models.__init__ import storage
+    from models import storage
     __tablename__ = "places"
 
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
@@ -30,7 +30,7 @@ class Place(BaseModel, Base):
     else:
         @property
         def rev(self):
-            from models.__init__ import storage
+            from models import storage
             rev_list = []
             for review in storage.all(Review).values():
                 if review.place_id == self.id:
