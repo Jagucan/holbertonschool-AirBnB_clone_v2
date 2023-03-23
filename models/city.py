@@ -3,9 +3,10 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+import os
 
 
-class City(BaseModel, Base):
+class City(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db' else object):
     """ The city class, contains state ID and name """
     __tablename__ = 'cities'
 
