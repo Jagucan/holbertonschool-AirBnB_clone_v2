@@ -126,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        new_obj = eval(args[0])()
+        new_obj = {}
 
         for attr in args[1:]:
             key, val = attr.split("=", 1)
@@ -136,10 +136,11 @@ class HBNBCommand(cmd.Cmd):
                 val = float(val)
             else:
                 val = int(val)
-            setattr(new_obj, key, val)
+            new_obj[key] = val
 
-        new_obj.save()
-        print(new_obj.id)
+        create_class = HBNBCommand.classes[class_name](**new_obj)
+        create_class.save()
+        print(create_class.id)
 
     def help_create(self):
         """ Help information for the create method """
