@@ -26,11 +26,3 @@ class Place(BaseModel, Base):
     reviews = relationship('Review', backref='place',
                                cascade='all, delete-orphan')
 
-    @property
-    def rev(self):
-        """Returns the list of Review instances"""
-        rev_list = []
-        for r in storage.all(Review).values():
-            if r.place_id == self.id:
-                rev_list.append(r)
-        return rev_list
