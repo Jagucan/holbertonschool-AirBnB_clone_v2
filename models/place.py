@@ -3,7 +3,6 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
-from models.__init__ import storage
 from models.review import Review
 
 
@@ -24,16 +23,14 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=False)
     amenity_ids = []
 
-    if storage == 'db':
-        reviews = relationship('Review', backref='place',
+    reviews = relationship('Review', backref='place',
                                cascade='all, delete-orphan')
 
-    else:
-        @property
-        def rev(self):
-            """Returns the list of Review instances"""
-            rev_list = []
-            for r in storage.all(Review).values():
-                if r.place_id == self.id:
-                    rev_list.append(r)
-            return rev_list
+    @property
+    def rev(self):
+        """Returns the list of Review instances"""
+        rev_list = []
+        for r in storage.all(Review).values():
+            if r.place_id == self.id:
+                rev_list.append(r)
+        return rev_list
