@@ -23,7 +23,7 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=False)
     amenity_ids = []
 
-    if storage == 'db':
+    if storage.__class__.__name__ == 'DBStorage':
         reviews = relationship('Review', backref='place',
                                cascade='all, delete-orphan')
 

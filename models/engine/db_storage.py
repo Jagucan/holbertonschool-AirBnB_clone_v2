@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
 
+
 class DBStorage:
     """DBStorge Class"""
     __engine = None
