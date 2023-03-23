@@ -17,7 +17,6 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
-        from models import storage
         self.id = kwargs.get("id", str(uuid.uuid4()))
         self.created_at = kwargs.get("id", datetime.now())
         self.updated_at = kwargs.get("id", datetime.now())

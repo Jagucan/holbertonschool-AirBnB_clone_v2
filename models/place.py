@@ -3,7 +3,7 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
-from models import storage
+import os
 
 
 class Place(BaseModel, Base):
@@ -23,7 +23,7 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=False)
     amenity_ids = []
 
-    if storage.__class__.__name__ == 'DBStorage':
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship('Review', backref='place',
                                cascade='all, delete-orphan')
 
