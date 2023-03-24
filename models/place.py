@@ -3,7 +3,7 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy.orm import relationship
 from models.review import Review
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 import os
 
 
@@ -37,6 +37,9 @@ class Place(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db' else objec
 
         reviews = relationship('Review', backref='place',
                                cascade='all, delete-orphan')
+        amenities = relationship('Amenity', secondary=place_amenity,
+                                 viewonly=False,
+                                 back_populates="place_amenities")
 
     else:
         city_id = ""
@@ -61,3 +64,16 @@ class Place(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db' else objec
                 if review.place_id == self.id:
                     rev_list.append(review)
             return rev_list
+
+        @property
+        def amenities(self):
+            """ Returns list of amenity ids """
+            return self.amenity_ids
+
+        @amenities.setter
+        def amenities(self, object=None):
+            ''' handles append method for adding an Amenity.id
+              to the attribute amenity_ids. '''
+            from models.amenity import Amenity
+            if type(object) is Amenity and object.id not in self.amenity_ids:
+                self.amenity_ids.append(object.id)
