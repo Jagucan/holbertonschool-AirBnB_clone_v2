@@ -28,7 +28,6 @@ class HBNBCommand(cmd.Cmd):
         'latitude': float, 'longitude': float
     }
 
-
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
 
@@ -79,7 +78,6 @@ class HBNBCommand(cmd.Cmd):
             pass
         finally:
             return line
-
 
     def do_quit(self, command):
         """ Method to exit the HBNB console"""

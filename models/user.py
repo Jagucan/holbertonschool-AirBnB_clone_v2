@@ -6,7 +6,8 @@ from sqlalchemy.orm import relationship
 import os
 
 
-class User(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db' else object):
+class User(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db'
+           else object):
     """This class defines a user by various attributes"""
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = 'users'
@@ -17,7 +18,7 @@ class User(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db' else object
         last_name = Column(String(128), nullable=True)
 
         places = relationship("Place", backref="user",
-                            cascade="all, delete-orphan")
+                              cascade="all, delete-orphan")
 
         reviews = relationship("Review", backref="user",
-                            cascade="all, delete-orphan")
+                               cascade="all, delete-orphan")
