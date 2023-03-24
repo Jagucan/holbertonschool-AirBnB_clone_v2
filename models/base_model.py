@@ -18,8 +18,8 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Instantiates a new model"""
         self.id = kwargs.get("id", str(uuid.uuid4()))
-        self.created_at = kwargs.get("id", datetime.now())
-        self.updated_at = kwargs.get("id", datetime.now())
+        self.created_at = kwargs.get("created_at", datetime.now())
+        self.updated_at = kwargs.get("updated_at", datetime.now())
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
