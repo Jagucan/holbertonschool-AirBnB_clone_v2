@@ -18,7 +18,8 @@ place_amenity = Table("place_amenity", Base.metadata,
                              nullable=False))
 
 
-class Place(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db' else object):
+class Place(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db'
+            else object):
     """ A place to stay """
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = "places"
