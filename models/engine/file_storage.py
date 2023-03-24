@@ -24,7 +24,7 @@ class FileStorage:
 
     def all(self, cls=None):
         """returns the list of objects of one type of class."""
-        if cls != None:
+        if cls is not None:
             new_dict = {}
             for key, val in self.__objects.items():
                 if cls == val.__class__:
@@ -66,7 +66,7 @@ class FileStorage:
     def delete(self, obj=None):
         """to delete obj from __objects if it's inside
          - if obj is equal to None"""
-        if obj != None:
+        if obj is not None:
             key = "{}.{}".format(type(obj).__name__, obj.id)
             if key in self.__objects:
                 del self.__objects[key]
