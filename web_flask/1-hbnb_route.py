@@ -12,6 +12,7 @@ def hello_hbnb():
     """ Handles the Route / to the Flask application """
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def hbnb():
     """ Handles the Route /hbnb to the Flask application """
