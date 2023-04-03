@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Starts a Flask web application """
 
-from flask import Flask
+from flask import Flask, abort
 
 
 app = Flask(__name__)
@@ -37,9 +37,11 @@ def python_text(text="is cool"):
 @app.route("/number/<n>", strict_slashes=False)
 def number(n):
     """ Handles the Route /number/<n> to the Flask application """
-    if type(int(n)) is int:
+    if n.isdigit():
         return "{} is a number".format(n)
+    else:
+        return abort(404)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
