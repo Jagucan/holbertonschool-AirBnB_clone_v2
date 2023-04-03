@@ -46,8 +46,10 @@ def number(n):
 @app.route("/number_template/<n>", strict_slashes=False)
 def number_template(n):
     """ Handles the Route /number_template/<n> to the Flask application """
-    if n.isdigit():    
+    if n.isdigit():
         return render_template("5-number.html", n=n)
+    else:
+        return abort(404)
 
 
 if __name__ == "__main__":
