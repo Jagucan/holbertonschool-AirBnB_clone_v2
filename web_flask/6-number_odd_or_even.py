@@ -58,9 +58,11 @@ def number_odd_or_even(n):
     if n.isdigit():
         even_odd = int(n)
         if even_odd % 2 == 0:
-            return render_template("6-number_odd_or_even.html",n=n, even=even_odd)
+            return render_template("6-number_odd_or_even.html", n=n,
+                                    even=even_odd)
         else:
-            return render_template("6-number_odd_or_even.html",n=n, odd=even_odd)
+            return render_template("6-number_odd_or_even.html", n=n,
+                                    odd=even_odd)
     else:
         return abort(404)
 
