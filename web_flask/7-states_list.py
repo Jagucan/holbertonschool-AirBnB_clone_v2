@@ -2,14 +2,13 @@
 """ Starts a Flask web application """
 from flask import Flask, render_template
 from models.state import State
+from models import storage
 
 app = Flask(__name__)
 
 
 @app.route("/states_list", strict_slashes=False)
 def states():
-    from models import storage
-
     """Displays a list of all State objects present in the DBStorage"""
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
@@ -18,7 +17,6 @@ def states():
 
 @app.teardown_appcontext
 def teardown_db(exception):
-    from models import storage
     """ Closes the database session """
     storage.close()
 
