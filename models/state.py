@@ -3,6 +3,7 @@
 from models.base_model import Base, BaseModel
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String, ForeignKey
+from models.city import City
 import os
 
 
@@ -19,10 +20,11 @@ class State(BaseModel, Base if os.getenv('HBNB_TYPE_STORAGE') == 'db'
     else:
         @property
         def cities(self):
-            """getter method that retrieves a list of City instances"""
             from models import storage
+            """getter method that retrieves a list of City instances"""
             cities_list = []
-            for city in storage.all('City').values():
+            cities_list = storage.all(City)
+            for city in cities_list.values():
                 if city.state_id == self.id:
                     cities_list.append(city)
             return cities_list
