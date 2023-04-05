@@ -14,20 +14,18 @@ def states():
     """Displays a list of all State objects present in the DBStorage"""
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
-    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = []
-        for state in states:
-            for city in state.cities:
-                cities.append(city)
-    else:
-        cities = []
-        for state in states:
-            for city in state.cities():
-                cities.append(city)
 
-    sorted_cities = sorted(cities, key=lambda city: city.name)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        cities = {}
+        for state in states:
+            cities[state] = state.cities
+    else:
+        cities = {}
+        for state in states:
+            cities[state] = state.cities()
+
     return render_template('8-cities_by_states.html',
-                           states=sorted_states, cities=sorted_cities)
+                           states=sorted_states, cities=cities)
 
 
 @app.teardown_appcontext
