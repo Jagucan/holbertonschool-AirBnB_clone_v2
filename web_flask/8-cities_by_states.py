@@ -3,6 +3,7 @@
 from flask import Flask, render_template
 from models.state import State
 from models import storage
+import os
 
 app = Flask(__name__)
 
@@ -12,7 +13,12 @@ def states():
     """Displays a list of all State objects present in the DBStorage"""
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
-    return render_template('7-states_list.html', states=sorted_states)
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        cities = [city for state in states for city in state.cities]
+    else:
+        cities = [city for state in states for city in state.cities()]
+    sorted_cities = sorted(cities, key=lambda city: city.name)
+    return render_template('7-states_list.html', states=sorted_states, cities=sorted_cities)
 
 
 @app.teardown_appcontext
