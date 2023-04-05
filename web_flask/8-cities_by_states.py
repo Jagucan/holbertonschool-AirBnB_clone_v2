@@ -24,8 +24,9 @@ def states():
         for state in states:
             cities[state] = state.cities()
 
+    sorted_cities = sorted(cities, key=lambda city: city.name)
     return render_template('8-cities_by_states.html',
-                           states=sorted_states, cities=cities)
+                           states=sorted_states, cities=sorted_cities)
 
 
 @app.teardown_appcontext
