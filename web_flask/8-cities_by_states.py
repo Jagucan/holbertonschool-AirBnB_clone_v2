@@ -6,6 +6,7 @@ from models import storage
 import os
 
 app = Flask(__name__)
+app.template_folder = 'templates'
 
 
 @app.route("/cities_by_states", strict_slashes=False)
