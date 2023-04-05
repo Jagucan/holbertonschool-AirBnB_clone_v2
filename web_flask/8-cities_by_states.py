@@ -14,9 +14,16 @@ def states():
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
     if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = [city for state in states for city in state.cities]
+        cities = []
+        for state in states:
+            for city in state.cities:
+                cities.append(city)
     else:
-        cities = [city for state in states for city in state.cities()]
+        cities = []
+        for state in states:
+            for city in state.cities():
+                cities.append(city)
+
     sorted_cities = sorted(cities, key=lambda city: city.name)
     return render_template('8-cities_by_states.html', states=sorted_states, cities=sorted_cities)
 
