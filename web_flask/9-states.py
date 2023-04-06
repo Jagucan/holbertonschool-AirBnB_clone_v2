@@ -23,10 +23,10 @@ def states_cities(id):
     state = storage.get(State, id)
     if state is not None:
         sorted_cities = sorted(state.cities, key=lambda city: city.name)
-        return render_template('9-states_cities.html', state=state,
-                           cities=sorted_cities)
+        return render_template('9-states.html', state=state, cities=sorted_cities)
     else:
-        return render_template('9-not_found.html')
+        not_found = "Not found!"
+        return render_template('9-states.html', message=not_found)
 
 
 @app.teardown_appcontext
