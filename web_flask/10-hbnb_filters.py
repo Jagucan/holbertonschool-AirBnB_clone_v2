@@ -14,7 +14,7 @@ def hbnb_filters():
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
 
-    return render_template('10-hbnb_filters.html', states=sorted_states)
+    return render_template("6-index.html", states=sorted_states)
 
 
 @app.teardown_appcontext
@@ -24,4 +24,4 @@ def close_db(error):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='5000')
+    app.run(host="0.0.0.0", port=5000)
