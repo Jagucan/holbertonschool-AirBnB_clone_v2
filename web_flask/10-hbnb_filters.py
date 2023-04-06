@@ -7,25 +7,13 @@ from models import storage
 app = Flask(__name__)
 
 
-@app.route("/states", strict_slashes=False)
-def states():
-    """Displays a list of all State objects present in the DBStorage"""
+@app.route("/hbnb_filters", strict_slashes=False)
+def hbnb_filters():
+    """Displays a page with filters for HBNB project"""
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda state: state.name)
-    return render_template('6-index.html', states=sorted_states)
 
-
-@app.route("/states/<id>", strict_slashes=False)
-def states_cities(id):
-    """Displays a list of all cities related to the specified state"""
-    state = storage.get(State, id)
-    if state is not None:
-        sorted_cities = sorted(state.cities, key=lambda city: city.name)
-        return render_template('6-index.html', state=state,
-                               cities=sorted_cities)
-    else:
-        not_found = "Not found!"
-        return render_template('6-index.html', message=not_found)
+    return render_template('10-hbnb_filters.html', states=sorted_states)
 
 
 @app.teardown_appcontext
